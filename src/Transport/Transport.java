@@ -34,6 +34,6 @@ public abstract class Transport {
     }
     public abstract void startMovement();
     public abstract void stopMovement();
-
-
+    public abstract String getType();
+    public abstract void printType();
 }
