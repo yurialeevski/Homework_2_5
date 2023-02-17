@@ -1,20 +1,27 @@
 package Transport;
 
 public class Bus<T extends Driver_Category_D> extends Transport implements Competing {
-    private T driver;
-    public Bus(String brand, String model, double engineVolume, T driver) {
+    private final T driver;
+    private final BusCapacity busCapacity;
+    private final Type type;
+
+    public Bus(String brand, String model, double engineVolume, T driver, BusCapacity busCapacity, Type type) {
         setBrand(defaultBrandOrModel(brand));
         setModel(defaultBrandOrModel(model));
         setEngineVolume(defaultEngineVolume(engineVolume));
         this.driver = driver;
+        this.busCapacity = busCapacity;
+        this.type = type;
     }
     @Override
     public String toString() {
         return
                 "Transport{" + "Bus{" +
-                        "brand='" + getBrand() + '\'' +
+                        "type='" + type + '\'' +
+                        ", brand='" + getBrand() + '\'' +
                         ", model='" + getModel() + '\'' +
                         ", engineVolume=" + getEngineVolume() +
+                        ", busCapacity=" + busCapacity +
                         ", driver=" + driver +
                         "}}";
     }
@@ -51,5 +58,17 @@ public class Bus<T extends Driver_Category_D> extends Transport implements Compe
     @Override
     public void maximumSpeed() {
         System.out.println("максимальная скорость для автобуса " + getModel());
+    }
+    @Override
+    public String getType() {
+        return type.getTransportType();
+    }
+    @Override
+    public void printType() {
+        if(type != null) {
+            System.out.println(getType());
+        } else {
+            System.out.println("Данных по транспортному средству недостаточно");
+        }
     }
 }

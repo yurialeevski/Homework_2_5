@@ -1,22 +1,27 @@
 package Transport;
 
 public class Truck<T extends Driver_Category_C> extends Transport implements Competing {
-    private T driver;
-    public Truck(String brand, String model, double engineVolume, T driver) {
+    private final T driver;
+    private final LoadCapacity loadCapacity;
+    private final Type type;
+    public Truck(String brand, String model, double engineVolume, T driver, LoadCapacity loadCapacity, Type type) {
         setBrand(defaultBrandOrModel(brand));
         setModel(defaultBrandOrModel(model));
         setEngineVolume(defaultEngineVolume(engineVolume));
         this.driver = driver;
+        this.loadCapacity = loadCapacity;
+        this.type = type;
     }
     @Override
     public String toString() {
-        return
-                "Transport{" + "Truck{" +
-                        "brand='" + getBrand() + '\'' +
-                        ", model='" + getModel() + '\'' +
-                        ", engineVolume=" + getEngineVolume() +
-                        ", driver=" + driver +
-                        "}}";
+        return "Transport{" + "Truck{" +
+                "type='" + type + '\'' +
+                ", brand='" + getBrand() + '\'' +
+                ", model='" + getModel() + '\'' +
+                ", engineVolume=" + getEngineVolume() +
+                ", loadCapacity=" + loadCapacity +
+                ", driver=" + driver +
+                "}}";
     }
     @Override
     public void startMovement() {
@@ -51,5 +56,17 @@ public class Truck<T extends Driver_Category_C> extends Transport implements Com
     @Override
     public void maximumSpeed() {
         System.out.println("максимальная скорость для грузовика " + getModel());
+    }
+    @Override
+    public String getType() {
+        return type.getTransportType();
+    }
+    @Override
+    public void printType() {
+        if(type != null) {
+            System.out.println(getType());
+        } else {
+            System.out.println("Данных по транспортному средству недостаточно");
+        }
     }
 }

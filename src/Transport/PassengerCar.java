@@ -3,23 +3,30 @@ package Transport;
 public class PassengerCar<T extends Driver_Category_B> extends Transport implements Competing {
 
     private final T driver;
-    public PassengerCar(String brand, String model, double engineVolume, T driver) {
+    private final PassengerCarBodyType bodyType;
+    private final Type type;
+    public PassengerCar(String brand, String model, double engineVolume, T driver, PassengerCarBodyType bodyType, Type type) {
         setBrand(defaultBrandOrModel(brand));
         setModel(defaultBrandOrModel(model));
         setEngineVolume(defaultEngineVolume(engineVolume));
         this.driver = driver;
+        this.bodyType = bodyType;
+        this.type = type;
     }
 
     @Override
     public String toString() {
         return
         "Transport{" + "PassengerCar{" +
-                "brand='" + getBrand() + '\'' +
+                "type='" + type + '\'' +
+                ", brand='" + getBrand() + '\'' +
                 ", model='" + getModel() + '\'' +
                 ", engineVolume=" + getEngineVolume() +
+                ", bodyType=" + bodyType +
                 ", driver=" + driver +
                 "}}";
     }
+
 
     @Override
     public void startMovement() {
@@ -56,5 +63,18 @@ public class PassengerCar<T extends Driver_Category_B> extends Transport impleme
     @Override
     public void maximumSpeed() {
         System.out.println("максимальная скорость для автомобиля " + getModel());
+    }
+    @Override
+    public String getType() {
+        return type.getTransportType();
+    }
+
+    @Override
+    public void printType() {
+        if(type != null) {
+            System.out.println(getType());
+        } else {
+            System.out.println("Данных по транспортному средству недостаточно");
+        }
     }
 }
